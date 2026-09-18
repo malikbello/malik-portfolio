@@ -64,6 +64,10 @@ export async function POST(req: NextRequest) {
   }
 
   const model = process.env.GEMINI_MODEL || "gemini-3.6-flash";
+  // Flash-Lite models (much higher free-tier daily quota) don't support the
+  // code-execution tool or thinkingConfig at all — sending either causes a
+  // 400 INVALID_ARGUMENT. Full Flash/Pro models support both.
+  const isLite = model.includes("lite");
   const contents = messages.map((m) => ({
     role: m.role === "assistant" ? "model" : "user",
     parts: [{ text: m.content.slice(0, 2000) }],
@@ -80,12 +84,12 @@ export async function POST(req: NextRequest) {
             parts: [{ text: `${SYSTEM_INSTRUCTION}\n\nCONTEXT ABOUT MALIK:\n${buildKnowledgeBase()}` }],
           },
           contents,
-          tools: [{ codeExecution: {} }],
+          ...(isLite ? {} : { tools: [{ codeExecution: {} }] }),
           generationConfig: {
             temperature: 0.95,
             topP: 0.95,
             maxOutputTokens: 2000,
-            thinkingConfig: { thinkingBudget: 0 },
+            ...(isLite ? {} : { thinkingConfig: { thinkingBudget: 0 } }),
           },
         }),
       }
