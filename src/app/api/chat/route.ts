@@ -92,8 +92,17 @@ export async function POST(req: NextRequest) {
     );
 
     if (!res.ok) {
-      const errBody = await res.text();
-      console.error("Gemini API error", res.status, errBody.slice(0, 1500));
+      if (res.status === 429) {
+        console.error("Gemini free-tier quota exhausted");
+        return NextResponse.json(
+          {
+            reply:
+              "I'm getting a lot of traffic right now and I'm out of free-tier requests for today — sorry about that. Email Malik directly at belloayopelumi@gmail.com, or try me again tomorrow.",
+          },
+          { status: 200 }
+        );
+      }
+      console.error("Gemini API error", res.status);
       return NextResponse.json(
         { reply: "The AI hit a snag processing that. Try again, or email belloayopelumi@gmail.com directly." },
         { status: 200 }
