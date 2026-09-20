@@ -160,6 +160,13 @@ export const experience: ExperienceItem[] = [
     points: [],
   },
   {
+    period: "Jan 2020 — Aug 2025",
+    role: "Data & Research Analyst, Digital Marketer, and Writer",
+    org: "Upwork (Freelance)",
+    location: "Remote, Nigeria",
+    points: [],
+  },
+  {
     period: "May 2024 — Jan 2025",
     role: "Data Analyst",
     org: "Directorate of ICT, Olabisi Onabanjo University",
@@ -191,6 +198,13 @@ export const experience: ExperienceItem[] = [
     period: "Jul 2023 — Feb 2024",
     role: "Graduate Research Assistant",
     org: "Science & Technology Education Dept., Obafemi Awolowo University",
+    location: "Ife, Osun, Nigeria",
+    points: [],
+  },
+  {
+    period: "Mar 2020 — Mar 2021",
+    role: "Head of Technical and Supplementary Services",
+    org: "Lavender Tutors",
     location: "Ife, Osun, Nigeria",
     points: [],
   },

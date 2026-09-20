@@ -21,7 +21,7 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://malikbello.vercel.app"),
+  metadataBase: new URL("https://malikbello.is-a.dev"),
   title: "Malik Pelumi Bello — AI/ML Engineer & Researcher",
   description:
     "Turning uncertainty into advantage through data, models, and judgment. AI/ML Engineer at Wema Bank Plc — machine learning, GenAI systems, and applied research.",
