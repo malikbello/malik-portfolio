@@ -40,6 +40,8 @@ const communityItems: CarouselItem[] = communities.map((c) => ({
   subtitle: c.issuer,
   icon: "shield",
   url: c.url,
+  image: c.logo,
+  imageFit: "contain",
 }));
 
 const volunteeringItems: CarouselItem[] = volunteering.map((v) => ({

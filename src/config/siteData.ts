@@ -383,6 +383,7 @@ export const education: Education[] = [
     degree: "AI Engineer Nanodegree",
     org: "Udacity (AWS-backed)",
     url: "https://www.udacity.com/certificate/e/ace6e02-8152-11f0-9d43-3bcb633ee64b",
+    logo: "/images/logos/udacity.png",
   },
   {
     period: "Feb 2024 — May 2025",
@@ -426,7 +427,7 @@ export const certifications: Certification[] = [
   { title: "IDR Statistical Consulting Associate", issuer: "Dataville Research LLC", date: "Aug 2025" },
   { title: "Microsoft Certified: Azure AI Fundamentals (AI-900)", issuer: "Microsoft", date: "Jul 2025", url: "https://learn.microsoft.com/en-us/users/malikpelumibello-5390/credentials/3336168a43eb651d", logo: "/images/logos/microsoft.png" },
   { title: "Machine Learning Pipelines with Azure ML Studio", issuer: "Microsoft, via Coursera", date: "Aug 2025", url: "https://www.coursera.org/account/accomplishments/verify/WC3CDB375QJ4", logo: "/images/logos/microsoft.png" },
-  { title: "Foundations of Financial Engineering", issuer: "WorldQuant University", date: "Jul 2025", logo: "/images/logos/worldquant.png" },
+  { title: "Foundations of Financial Engineering", issuer: "WorldQuant University", date: "Jul 2025", url: "https://www.credly.com/badges/bfdab2b6-644a-4099-9dd9-9ffca71df463/public_url", logo: "/images/logos/worldquant.png" },
   { title: "Data Modeling in Power BI", issuer: "Microsoft, via Coursera", date: "Jul 2025", url: "https://coursera.org/verify/GFB3PL0Y8D3H", logo: "/images/logos/microsoft.png" },
   { title: "Aspire Leaders Program", issuer: "Aspire Institute (Harvard-affiliated faculty)", date: "May 2025" },
   { title: "ISO/IEC 27001 Information Security Associate", issuer: "SkillFront", date: "Mar 2025", url: "https://www.skillfront.com/Badges/26859328060599" },
@@ -483,15 +484,16 @@ export type Community = {
   title: string;
   issuer: string;
   url?: string;
+  logo?: string;
 };
 
 export const communities: Community[] = [
-  { title: "Registered Data Scientist", issuer: "Data Science Nigeria (DSN/AIPlus/2025/44220)" },
-  { title: "Registered Data Analyst", issuer: "Nigerian Society of Data Analysts & BI Experts (NSDABIE)" },
-  { title: "Registered Teacher", issuer: "Teachers' Registration Council of Nigeria (TRCN; OS/R/07203)" },
-  { title: "Masakhane", issuer: "Grassroots African NLP research community", url: "https://github.com/masakhane-io/masakhane-community" },
-  { title: "ML Collective", issuer: "Open, global machine-learning research community", url: "https://mlcollective.org/" },
-  { title: "Deep Learning Indaba", issuer: "Africa's annual machine-learning & AI community gathering", url: "https://deeplearningindaba.com/" },
+  { title: "Registered Data Scientist", issuer: "Data Science Nigeria (DSN/AIPlus/2025/44220)", logo: "/images/logos/dsn.png" },
+  { title: "Registered Data Analyst", issuer: "Nigerian Society of Data Analysts & BI Experts (NSDABIE)", logo: "/images/logos/nsdabie.png" },
+  { title: "Registered Teacher", issuer: "Teachers' Registration Council of Nigeria (TRCN; OS/R/07203)", logo: "/images/logos/trcn.png" },
+  { title: "Masakhane", issuer: "Grassroots African NLP research community", url: "https://github.com/masakhane-io/masakhane-community", logo: "/images/logos/masakhane.png" },
+  { title: "ML Collective", issuer: "Open, global machine-learning research community", url: "https://mlcollective.org/", logo: "/images/logos/mlcollective.png" },
+  { title: "Deep Learning Indaba", issuer: "Africa's annual machine-learning & AI community gathering", url: "https://deeplearningindaba.com/", logo: "/images/logos/dli.png" },
 ];
 
 export const kaggleBadges = [
