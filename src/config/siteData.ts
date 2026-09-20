@@ -389,6 +389,7 @@ export const education: Education[] = [
     period: "Feb 2024 — May 2025",
     degree: "Professional Diploma in Data Analytics",
     org: "Baze University, Abuja, Nigeria",
+    logo: "/images/logos/baze.png",
   },
   {
     period: "2023",
@@ -427,7 +428,7 @@ export const certifications: Certification[] = [
   { title: "IDR Statistical Consulting Associate", issuer: "Dataville Research LLC", date: "Aug 2025" },
   { title: "Microsoft Certified: Azure AI Fundamentals (AI-900)", issuer: "Microsoft", date: "Jul 2025", url: "https://learn.microsoft.com/en-us/users/malikpelumibello-5390/credentials/3336168a43eb651d", logo: "/images/logos/azure.png" },
   { title: "Machine Learning Pipelines with Azure ML Studio", issuer: "Microsoft, via Coursera", date: "Aug 2025", url: "https://www.coursera.org/account/accomplishments/verify/WC3CDB375QJ4", logo: "/images/logos/azure.png" },
-  { title: "Foundations of Financial Engineering", issuer: "WorldQuant University", date: "Jul 2025", url: "https://www.credly.com/badges/bfdab2b6-644a-4099-9dd9-9ffca71df463/public_url", logo: "/images/logos/worldquant.png" },
+  { title: "Foundations of Financial Engineering", issuer: "WorldQuant University", date: "Jul 2025", url: "https://www.credly.com/badges/bfdab2b6-644a-4099-9dd9-9ffca71df463/public_url", logo: "/images/logos/ffe-badge.png" },
   { title: "Data Modeling in Power BI", issuer: "Microsoft, via Coursera", date: "Jul 2025", url: "https://coursera.org/verify/GFB3PL0Y8D3H", logo: "/images/logos/microsoft.png" },
   { title: "Aspire Leaders Program", issuer: "Aspire Institute (Harvard-affiliated faculty)", date: "May 2025" },
   { title: "ISO/IEC 27001 Information Security Associate", issuer: "SkillFront", date: "Mar 2025", url: "https://www.skillfront.com/Badges/26859328060599" },
