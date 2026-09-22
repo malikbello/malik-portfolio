@@ -19,7 +19,7 @@ export const siteConfig = {
   ],
   socials: {
     linkedin: "https://www.linkedin.com/in/malik-bello-data-scientist/",
-    github: "https://github.com/HonTime2023",
+    github: "https://github.com/malikbello",
     kaggle: "https://www.kaggle.com/bellomalik/code",
     medium: "https://medium.com/@belloayopelumi",
     researchgate: "https://www.researchgate.net/profile/Malik-Bello",
@@ -241,7 +241,7 @@ export const projects: Project[] = [
       "A real-time disaster-intelligence system built for Africa. AIDER fuses live weather data, breaking disaster news and satellite imagery, then uses multimodal AI to generate actionable emergency briefs for any location on the continent.",
     stack: ["Flask", "Google Gemini Pro Vision", "OpenWeather API", "Serper.dev", "NASA Earth API"],
     links: [
-      { label: "GitHub", url: "https://github.com/HonTime2023/AIDER" },
+      { label: "GitHub", url: "https://github.com/malikbello/AIDER" },
       { label: "Kaggle Notebook", url: "https://www.kaggle.com/code/bellomalik/aider-bello-malik" },
       { label: "Medium Write-up", url: "https://medium.com/@belloayopelumi/aider-how-i-built-a-real-time-ai-disaster-assistant-for-africa-1964d5fe79c2" },
       { label: "Watch Demo", url: "https://www.youtube.com/watch?v=yAWXHt9sXNg&t=424s" },
@@ -282,7 +282,7 @@ export const projects: Project[] = [
       "An end-to-end retrieval-augmented generation pipeline on AWS, built as an AI Engineer Nanodegree capstone: PDFs are ingested into S3, indexed into Aurora Serverless Postgres with pgvector/HNSW, and served through a Bedrock Knowledge Base Agent that reasons over the corpus with Claude — with category-classification prompt validation keeping a heavy-machinery support bot on-topic.",
     stack: ["AWS Bedrock", "Aurora Serverless (pgvector)", "Terraform", "Streamlit", "Claude"],
     links: [
-      { label: "GitHub", url: "https://github.com/HonTime2023/Intelligent-Document-Processing-System-with-Amazon-Bedrock" },
+      { label: "GitHub", url: "https://github.com/malikbello/Intelligent-Document-Processing-System-with-Amazon-Bedrock" },
     ],
     featured: true,
   },
@@ -304,7 +304,7 @@ export const projects: Project[] = [
       "A LightGBM-powered application built during the 3MTT Nigeria fellowship to predict Multi-dimensional Poverty Index (MPI) and quantify how tech-skills training moves the needle on poverty reduction — open-sourced as a knowledge showcase for fellow analysts.",
     stack: ["Python", "LightGBM", "Streamlit", "Sensitivity Analysis"],
     links: [
-      { label: "GitHub", url: "https://github.com/HonTime2023/3MTTshowcase" },
+      { label: "GitHub", url: "https://github.com/malikbello/3MTTshowcase" },
       { label: "Full Report", url: "http://bit.ly/4i8dhDn" },
       { label: "Live App", url: "https://bit.ly/3X4Otma" },
     ],
@@ -318,7 +318,7 @@ export const projects: Project[] = [
       "A real-world variant of the Travelling Salesman Problem: ~3,957 geolocated points assigned across 41 agents, with routes optimised for minimum combined distance and balanced per-agent workload, respecting Earth-curvature distances.",
     stack: ["OR-Tools", "GeoPandas", "Mapbox", "Google Vision", "Tesseract OCR"],
     links: [
-      { label: "GitHub", url: "https://github.com/HonTime2023/Traveling-Salesman-Problem-MVP-variant-" },
+      { label: "GitHub", url: "https://github.com/malikbello/Traveling-Salesman-Problem-MVP-variant-" },
     ],
   },
   {
@@ -347,7 +347,7 @@ export const projects: Project[] = [
     description:
       "A purpose-built scraping pipeline that collected fellow-level training data from a specialised public database, feeding the dataset later used to train ESAAM's MPI model.",
     stack: ["Python", "Web Scraping", "Data Pipelines"],
-    links: [{ label: "GitHub", url: "https://github.com/HonTime2023/Webscrapper" }],
+    links: [{ label: "GitHub", url: "https://github.com/malikbello/Webscrapper" }],
   },
   {
     name: "Indeed Job Market Scraper & Insights",
@@ -356,7 +356,7 @@ export const projects: Project[] = [
     description:
       "A proxy-backed scraping pipeline over the Oxylabs API that collects and parses live Indeed job postings, then rolls them up into a cleaned dataset with market insights on roles, locations and demand.",
     stack: ["Python", "Oxylabs API", "Pandas"],
-    links: [{ label: "GitHub", url: "https://github.com/HonTime2023/indeed-job-market-scraper" }],
+    links: [{ label: "GitHub", url: "https://github.com/malikbello/indeed-job-market-scraper" }],
   },
 ];
 
