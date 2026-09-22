@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { ArrowUpRight, ChevronLeft, ChevronRight, Clock } from "lucide-react";
+import { useRef, useState } from "react";
+import { motion, useScroll, useTransform, useMotionValueEvent, type MotionValue } from "framer-motion";
+import { ArrowUpRight, Clock } from "lucide-react";
 import { projects, projectsNote, type Project } from "@/config/siteData";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { cn } from "@/lib/utils";
@@ -15,6 +15,7 @@ import { DemandBarsAnimation } from "@/components/ui/projects/DemandBarsAnimatio
 import { FloodRiskAnimation } from "@/components/ui/projects/FloodRiskAnimation";
 import { ScrapePipelineAnimation } from "@/components/ui/projects/ScrapePipelineAnimation";
 import { SkylineGrowthAnimation } from "@/components/ui/projects/SkylineGrowthAnimation";
+import { GovernanceAnimation } from "@/components/ui/projects/GovernanceAnimation";
 
 // Each project gets its own small, running visualisation — same idea as the
 // Algorithms section, but illustrating what that specific project does.
@@ -28,6 +29,7 @@ function projectAnimation(name: string) {
   if (name.includes("Nepal Climate")) return <FloodRiskAnimation />;
   if (name.includes("Scraper")) return <ScrapePipelineAnimation />;
   if (name.includes("Skyline")) return <SkylineGrowthAnimation />;
+  if (name.includes("Governed Research Agent")) return <GovernanceAnimation />;
   return null;
 }
 
@@ -39,14 +41,22 @@ const categories: Array<Project["category"] | "All"> = [
   "Research",
 ];
 
-// Click-driven, not scroll-driven. The previous version tied each card's pose
-// continuously to raw page-scroll position -- it looked good, but there was
-// no way to actually stop on a card: trackpad/mouse-wheel momentum carries
-// scroll position straight through any "active" window before you can read
-// or click anything, no matter how wide that window is made. A card here
-// stays in its exact pose indefinitely until the next click -- unlimited
-// time to read and click links, by construction, not by timing.
-function cascadeStyle(offset: number) {
+// Reverse-engineered from launchfar.com's "Your mentor evolves around you" card
+// deck: each card's pose is a smooth function of its distance (offset) from the
+// currently-active card. Cards still waiting ease in from behind (exponential,
+// ratio ~0.45 per step, matching what launchfar actually ships), while a card
+// that has already had its turn keeps swinging forward/down and flips past
+// vertical until the sticky stage's overflow clips it out of view.
+//
+// DEADZONE holds a card at its exact active pose across a range of scroll
+// (not just one exact pixel) -- without it, the "active, clickable" state
+// only existed for an instant, not nearly long enough to actually click a
+// project's links while scrolling past.
+const DEADZONE = 0.3;
+
+function cascadeStyle(rawOffset: number) {
+  const offset =
+    rawOffset > 0 ? Math.max(0, rawOffset - DEADZONE) : Math.min(0, rawOffset + DEADZONE);
   if (offset >= 0) {
     const k = Math.pow(0.45, offset);
     return {
@@ -70,36 +80,36 @@ function CascadeCard({
   project,
   index,
   total,
-  activeIdx,
+  activeFloat,
 }: {
   project: Project;
   index: number;
   total: number;
-  activeIdx: number;
+  activeFloat: MotionValue<number>;
 }) {
-  const offset = index - activeIdx;
-  const pose = cascadeStyle(offset);
-  const isActive = offset === 0;
+  const offset = useTransform(activeFloat, (v) => index - v);
+  const y = useTransform(offset, (o) => cascadeStyle(o).y);
+  const z = useTransform(offset, (o) => cascadeStyle(o).z);
+  const rotateX = useTransform(offset, (o) => cascadeStyle(o).rotateX);
+  const scale = useTransform(offset, (o) => cascadeStyle(o).scale);
+  const opacity = useTransform(offset, (o) => cascadeStyle(o).opacity);
+  const zIndex = useTransform(offset, (o) => Math.round(1000 - o * 10));
 
   return (
     <motion.article
-      animate={{
-        y: pose.y,
-        z: pose.z,
-        rotateX: pose.rotateX,
-        scale: pose.scale,
-        opacity: pose.opacity,
-      }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       style={{
         position: "absolute",
         top: "50%",
         left: "50%",
         marginTop: -310,
         marginLeft: -240,
-        zIndex: Math.round(1000 - offset * 10),
+        y,
+        z,
+        rotateX,
+        scale,
+        opacity,
+        zIndex,
         transformStyle: "preserve-3d",
-        pointerEvents: isActive ? "auto" : "none",
       }}
       className={cn(
         "flex h-155 w-[480px] max-w-[88vw] flex-col gap-3 overflow-hidden rounded-3xl border p-7 shadow-2xl shadow-black/50",
@@ -196,62 +206,66 @@ function ProjectDetail({ p }: { p: Project }) {
 }
 
 function ProjectCascade({ filtered }: { filtered: Project[] }) {
+  const containerRef = useRef<HTMLDivElement>(null);
   const [activeIdx, setActiveIdx] = useState(0);
   const total = filtered.length;
 
-  function go(delta: 1 | -1) {
-    setActiveIdx((i) => Math.min(total - 1, Math.max(0, i + delta)));
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+  // Input range stops at 0.85, not 1 -- useTransform clamps outside its input
+  // domain, so the last ~15% of scroll through this section holds activeFloat
+  // at the final card instead of the last card's "active" moment landing
+  // exactly when the sticky container releases (previously: the one instant
+  // it was reachable coincided with the section scrolling away entirely).
+  const activeFloat = useTransform(scrollYProgress, [0, 0.85], [0, Math.max(0, total - 1)]);
+
+  useMotionValueEvent(activeFloat, "change", (v) => {
+    const idx = Math.min(total - 1, Math.max(0, Math.round(v)));
+    setActiveIdx(idx);
+  });
+
+  function jumpTo(idx: number) {
+    const el = containerRef.current;
+    if (!el || total <= 1) return;
+    const rect = el.getBoundingClientRect();
+    const targetY = window.scrollY + rect.top + (idx / (total - 1)) * (rect.height - window.innerHeight);
+    window.scrollTo({ top: targetY, behavior: "smooth" });
   }
 
   return (
-    <div className="bg-abstract-mesh relative h-[min(78vh,700px)] overflow-hidden rounded-3xl border border-brand-border">
-      <div className="grid h-full items-center gap-6 px-6 md:grid-cols-[1fr_120px] md:px-10">
-        <div style={{ perspective: 1500, perspectiveOrigin: "50% 40%" }} className="relative h-full">
-          {filtered.map((p, idx) => (
-            <CascadeCard key={p.name} project={p} index={idx} total={total} activeIdx={activeIdx} />
-          ))}
-
-          {/* Prev/next arrows -- the clear, always-reliable way to move between
-              cards. No timing, no scroll precision, no momentum to fight. */}
-          <button
-            onClick={() => go(-1)}
-            disabled={activeIdx === 0}
-            aria-label="Previous project"
-            className="absolute left-2 top-1/2 z-1001 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-brand-border bg-brand-bg/80 text-brand-text backdrop-blur transition hover:border-brand-accent hover:text-brand-accent disabled:pointer-events-none disabled:opacity-30"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </button>
-          <button
-            onClick={() => go(1)}
-            disabled={activeIdx === total - 1}
-            aria-label="Next project"
-            className="absolute right-2 top-1/2 z-1001 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-brand-border bg-brand-bg/80 text-brand-text backdrop-blur transition hover:border-brand-accent hover:text-brand-accent disabled:pointer-events-none disabled:opacity-30"
-          >
-            <ChevronRight className="h-5 w-5" />
-          </button>
-        </div>
-
-        <div className="hidden flex-col items-center gap-4 md:flex">
-          <div className="text-center font-heading text-2xl font-bold text-brand-text">
-            {String(activeIdx + 1).padStart(2, "0")}
-            <span className="block font-mono text-[10px] font-normal text-brand-muted">/ {String(total).padStart(2, "0")}</span>
-          </div>
-          <div className="flex flex-col gap-2">
+    <div ref={containerRef} style={{ height: `${Math.max(1, total) * 92}vh` }} className="relative">
+      <div className="bg-abstract-mesh sticky top-20 h-[min(78vh,700px)] overflow-hidden rounded-3xl border border-brand-border">
+        <div className="grid h-full items-center gap-6 px-6 md:grid-cols-[1fr_120px] md:px-10">
+          <div style={{ perspective: 1500, perspectiveOrigin: "50% 40%" }} className="relative h-full">
             {filtered.map((p, idx) => (
-              <button
-                key={p.name}
-                onClick={() => setActiveIdx(idx)}
-                aria-label={`Show project ${idx + 1}: ${p.name}`}
-                className={cn(
-                  "flex h-8 w-8 items-center justify-center rounded-full border font-mono text-[10px] transition-all",
-                  idx === activeIdx
-                    ? "border-brand-accent bg-brand-accent text-brand-bg shadow-[0_0_14px_rgba(241,196,15,0.4)]"
-                    : "border-brand-border text-brand-muted hover:border-brand-accent/60 hover:text-brand-text"
-                )}
-              >
-                {String(idx + 1).padStart(2, "0")}
-              </button>
+              <CascadeCard key={p.name} project={p} index={idx} total={total} activeFloat={activeFloat} />
             ))}
+          </div>
+
+          <div className="hidden flex-col items-center gap-4 md:flex">
+            <div className="text-center font-heading text-2xl font-bold text-brand-text">
+              {String(activeIdx + 1).padStart(2, "0")}
+              <span className="block font-mono text-[10px] font-normal text-brand-muted">/ {String(total).padStart(2, "0")}</span>
+            </div>
+            <div className="flex flex-col gap-2">
+              {filtered.map((p, idx) => (
+                <button
+                  key={p.name}
+                  onClick={() => jumpTo(idx)}
+                  aria-label={`Show project ${idx + 1}: ${p.name}`}
+                  className={cn(
+                    "flex h-8 w-8 items-center justify-center rounded-full border font-mono text-[10px] transition-all",
+                    idx === activeIdx
+                      ? "border-brand-accent bg-brand-accent text-brand-bg shadow-[0_0_14px_rgba(241,196,15,0.4)]"
+                      : "border-brand-border text-brand-muted hover:border-brand-accent/60 hover:text-brand-text"
+                  )}
+                >
+                  {String(idx + 1).padStart(2, "0")}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -292,8 +306,7 @@ export function Projects() {
         ))}
       </div>
 
-      {/* Desktop/tablet: click-driven 3D card cascade -- each card holds its
-          pose indefinitely until you click next/prev or a dot. */}
+      {/* Desktop/tablet: the launchfar-style scroll-driven 3D card cascade */}
       <div className="hidden md:block">
         <ProjectCascade key={active} filtered={filtered} />
       </div>

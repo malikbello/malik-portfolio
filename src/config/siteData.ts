@@ -249,6 +249,32 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    name: "NYC Skyline Growth",
+    category: "ML & Data Science",
+    year: "2026",
+    description:
+      "An interactive 3D map of all ~1.08M NYC buildings, extruded and colour-coded by construction decade, with a GPU-driven timelapse animating the city's growth from 1800 to 2020. Built on a real join — NYC's official Building Footprints joined to the full PLUTO tax-lot dataset on BBL (99.85% match rate) — rather than a lossy lat/lon spatial join, with decade and borough filtering running entirely on the GPU via deck.gl's DataFilterExtension for smooth interaction at full dataset scale.",
+    stack: ["Next.js", "deck.gl", "MapLibre GL", "TypeScript", "PMTiles", "Cloudflare R2"],
+    links: [
+      { label: "Live", url: "https://nyc-skyline.vercel.app" },
+      { label: "GitHub", url: "https://github.com/malikbello/nyc-skyline" },
+    ],
+    featured: true,
+  },
+  {
+    name: "Governed Research Agent — nooa-governance",
+    category: "AI Engineering",
+    year: "2026",
+    description:
+      "A cost/retry/timeout governance layer for LLM agents, built as an inheritable Python mixin rather than an external reverse proxy, so enforcement lives in the same codebase as the agent it governs and holds no matter what the model decides to do. Extracted into its own independent package, published on PyPI as nooa-governance, and hardened with a real test suite, a PEP 561 type marker, CI gating the release itself, and a wall-clock time budget across an agent's whole run.",
+    stack: ["Python", "NOOA", "PyPI", "pytest", "GitHub Actions"],
+    links: [
+      { label: "PyPI", url: "https://pypi.org/project/nooa-governance/" },
+      { label: "GitHub", url: "https://github.com/malikbello/governed-research-agent" },
+    ],
+    featured: true,
+  },
+  {
     name: "Intelligent Document Processing — AWS Bedrock RAG",
     category: "AI Engineering",
     year: "2025",
@@ -331,19 +357,6 @@ export const projects: Project[] = [
       "A proxy-backed scraping pipeline over the Oxylabs API that collects and parses live Indeed job postings, then rolls them up into a cleaned dataset with market insights on roles, locations and demand.",
     stack: ["Python", "Oxylabs API", "Pandas"],
     links: [{ label: "GitHub", url: "https://github.com/HonTime2023/indeed-job-market-scraper" }],
-  },
-  {
-    name: "NYC Skyline Growth",
-    category: "ML & Data Science",
-    year: "2026",
-    description:
-      "An interactive 3D map of all ~1.08M NYC buildings, extruded and colour-coded by construction decade, with a GPU-driven timelapse animating the city's growth from 1800 to 2020. Built on a real join — NYC's official Building Footprints joined to the full PLUTO tax-lot dataset on BBL (99.85% match rate) — rather than a lossy lat/lon spatial join, with decade and borough filtering running entirely on the GPU via deck.gl's DataFilterExtension for smooth interaction at full dataset scale.",
-    stack: ["Next.js", "deck.gl", "MapLibre GL", "TypeScript", "PMTiles", "Cloudflare R2"],
-    links: [
-      { label: "Live", url: "https://nyc-skyline.vercel.app" },
-      { label: "GitHub", url: "https://github.com/malikbello/nyc-skyline" },
-    ],
-    featured: true,
   },
 ];
 
