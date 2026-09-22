@@ -45,7 +45,16 @@ const categories: Array<Project["category"] | "All"> = [
 // ratio ~0.45 per step, matching what launchfar actually ships), while a card
 // that has already had its turn keeps swinging forward/down and flips past
 // vertical until the sticky stage's overflow clips it out of view.
-function cascadeStyle(offset: number) {
+//
+// DEADZONE holds a card at its exact active pose across a range of scroll
+// (not just one exact pixel) -- without it, the "active, clickable" state
+// only existed for an instant, not nearly long enough to actually click a
+// project's links while scrolling past.
+const DEADZONE = 0.3;
+
+function cascadeStyle(rawOffset: number) {
+  const offset =
+    rawOffset > 0 ? Math.max(0, rawOffset - DEADZONE) : Math.min(0, rawOffset + DEADZONE);
   if (offset >= 0) {
     const k = Math.pow(0.45, offset);
     return {
@@ -203,7 +212,12 @@ function ProjectCascade({ filtered }: { filtered: Project[] }) {
     target: containerRef,
     offset: ["start start", "end end"],
   });
-  const activeFloat = useTransform(scrollYProgress, [0, 1], [0, Math.max(0, total - 1)]);
+  // Input range stops at 0.85, not 1 -- useTransform clamps outside its input
+  // domain, so the last ~15% of scroll through this section holds activeFloat
+  // at the final card instead of the last card's "active" moment landing
+  // exactly when the sticky container releases (previously: the one instant
+  // it was reachable coincided with the section scrolling away entirely).
+  const activeFloat = useTransform(scrollYProgress, [0, 0.85], [0, Math.max(0, total - 1)]);
 
   useMotionValueEvent(activeFloat, "change", (v) => {
     const idx = Math.min(total - 1, Math.max(0, Math.round(v)));
@@ -219,16 +233,16 @@ function ProjectCascade({ filtered }: { filtered: Project[] }) {
   }
 
   return (
-    <div ref={containerRef} style={{ height: `${Math.max(1, total) * 78}vh` }} className="relative">
+    <div ref={containerRef} style={{ height: `${Math.max(1, total) * 92}vh` }} className="relative">
       <div className="bg-abstract-mesh sticky top-20 h-[min(78vh,700px)] overflow-hidden rounded-3xl border border-brand-border">
-        <div className="grid h-full items-center gap-6 px-6 lg:grid-cols-[1fr_120px] lg:px-10">
+        <div className="grid h-full items-center gap-6 px-6 md:grid-cols-[1fr_120px] md:px-10">
           <div style={{ perspective: 1500, perspectiveOrigin: "50% 40%" }} className="relative h-full">
             {filtered.map((p, idx) => (
               <CascadeCard key={p.name} project={p} index={idx} total={total} activeFloat={activeFloat} />
             ))}
           </div>
 
-          <div className="hidden flex-col items-center gap-4 lg:flex">
+          <div className="hidden flex-col items-center gap-4 md:flex">
             <div className="text-center font-heading text-2xl font-bold text-brand-text">
               {String(activeIdx + 1).padStart(2, "0")}
               <span className="block font-mono text-[10px] font-normal text-brand-muted">/ {String(total).padStart(2, "0")}</span>
