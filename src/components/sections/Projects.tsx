@@ -14,6 +14,7 @@ import { RouteAnimation } from "@/components/ui/projects/RouteAnimation";
 import { DemandBarsAnimation } from "@/components/ui/projects/DemandBarsAnimation";
 import { FloodRiskAnimation } from "@/components/ui/projects/FloodRiskAnimation";
 import { ScrapePipelineAnimation } from "@/components/ui/projects/ScrapePipelineAnimation";
+import { SkylineGrowthAnimation } from "@/components/ui/projects/SkylineGrowthAnimation";
 
 // Each project gets its own small, running visualisation — same idea as the
 // Algorithms section, but illustrating what that specific project does.
@@ -26,6 +27,7 @@ function projectAnimation(name: string) {
   if (name.includes("Taxi")) return <DemandBarsAnimation />;
   if (name.includes("Nepal Climate")) return <FloodRiskAnimation />;
   if (name.includes("Scraper")) return <ScrapePipelineAnimation />;
+  if (name.includes("Skyline")) return <SkylineGrowthAnimation />;
   return null;
 }
 

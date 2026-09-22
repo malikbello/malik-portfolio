@@ -332,6 +332,19 @@ export const projects: Project[] = [
     stack: ["Python", "Oxylabs API", "Pandas"],
     links: [{ label: "GitHub", url: "https://github.com/HonTime2023/indeed-job-market-scraper" }],
   },
+  {
+    name: "NYC Skyline Growth",
+    category: "ML & Data Science",
+    year: "2026",
+    description:
+      "An interactive 3D map of all ~1.08M NYC buildings, extruded and colour-coded by construction decade, with a GPU-driven timelapse animating the city's growth from 1800 to 2020. Built on a real join — NYC's official Building Footprints joined to the full PLUTO tax-lot dataset on BBL (99.85% match rate) — rather than a lossy lat/lon spatial join, with decade and borough filtering running entirely on the GPU via deck.gl's DataFilterExtension for smooth interaction at full dataset scale.",
+    stack: ["Next.js", "deck.gl", "MapLibre GL", "TypeScript", "PMTiles", "Cloudflare R2"],
+    links: [
+      { label: "Live", url: "https://nyc-skyline.vercel.app" },
+      { label: "GitHub", url: "https://github.com/malikbello/nyc-skyline" },
+    ],
+    featured: true,
+  },
 ];
 
 export type Publication = {

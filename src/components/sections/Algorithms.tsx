@@ -14,6 +14,7 @@ import { RLAnimation } from "@/components/ui/algorithms/RLAnimation";
 import { ASRAnimation } from "@/components/ui/algorithms/ASRAnimation";
 import { OCRAnimation } from "@/components/ui/algorithms/OCRAnimation";
 import { AgentLoopAnimation } from "@/components/ui/algorithms/AgentLoopAnimation";
+import { GPUFilterAnimation } from "@/components/ui/algorithms/GPUFilterAnimation";
 
 const items = [
   {
@@ -66,6 +67,11 @@ const items = [
     desc: "The perceive → plan → act → observe cycle that keeps a tool-using agent reliable.",
     render: () => <AgentLoopAnimation />,
   },
+  {
+    title: "GPU-Accelerated Spatial Filtering",
+    desc: "Filtering ~1M+ map features by decade and region entirely in the GPU shader — powers NYC Skyline Growth's live timelapse with zero per-frame recompute.",
+    render: () => <GPUFilterAnimation />,
+  },
 ];
 
 export function Algorithms() {
@@ -80,7 +86,7 @@ export function Algorithms() {
       <SectionHeading
         eyebrow="How the Models Actually Work"
         title="The algorithms behind the projects, animated."
-        description="Ten live, running visualisations of the techniques behind the projects above."
+        description="Eleven live, running visualisations of the techniques behind the projects above."
       />
 
       <div className="group/carousel relative">
