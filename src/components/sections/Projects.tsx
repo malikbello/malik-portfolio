@@ -123,36 +123,41 @@ function CascadeCard({
         <h3 className="mt-1 font-heading text-lg font-bold leading-snug">{project.name}</h3>
       </div>
 
+      {/* Links moved up here, right under the title -- previously pushed to the
+          very bottom of the card (mt-auto), which put them furthest from where
+          attention actually lands while scrolling through the cascade. */}
+      {(project.links.length > 0 || project.status) && (
+        <div className="flex flex-wrap items-center gap-4">
+          {project.status && (
+            <span className="inline-flex items-center gap-1.5 text-xs font-medium text-brand-accent">
+              <Clock className="h-3.5 w-3.5" />
+              {project.status}
+            </span>
+          )}
+          {project.links.map((l) => (
+            <a
+              key={l.url}
+              href={l.url}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 rounded-full border border-brand-accent/40 bg-brand-accent/10 px-3 py-1 text-xs font-semibold text-brand-accent transition-colors hover:bg-brand-accent hover:text-brand-bg"
+            >
+              {l.label}
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </a>
+          ))}
+        </div>
+      )}
+
       {projectAnimation(project.name)}
 
       <p className="text-sm leading-relaxed text-brand-muted">{project.description}</p>
 
-      <div className="flex flex-wrap gap-2">
+      <div className="mt-auto flex flex-wrap gap-2 pt-2">
         {project.stack.slice(0, 5).map((t) => (
           <span key={t} className="rounded border border-brand-border bg-brand-bg-soft px-2.5 py-1 text-[11px] text-brand-muted">
             {t}
           </span>
-        ))}
-      </div>
-
-      <div className="mt-auto flex flex-wrap items-center gap-4 pt-2">
-        {project.status && (
-          <span className="inline-flex items-center gap-1.5 text-xs font-medium text-brand-accent">
-            <Clock className="h-3.5 w-3.5" />
-            {project.status}
-          </span>
-        )}
-        {project.links.map((l) => (
-          <a
-            key={l.url}
-            href={l.url}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-1 text-xs font-semibold text-brand-text hover:text-brand-accent"
-          >
-            {l.label}
-            <ArrowUpRight className="h-3.5 w-3.5" />
-          </a>
         ))}
       </div>
     </motion.article>
@@ -169,36 +174,38 @@ function ProjectDetail({ p }: { p: Project }) {
         <h3 className="mt-1 font-heading text-lg font-bold leading-snug">{p.name}</h3>
       </div>
 
+      {(p.links.length > 0 || p.status) && (
+        <div className="flex flex-wrap items-center gap-4">
+          {p.status && (
+            <span className="inline-flex items-center gap-1.5 text-xs font-medium text-brand-accent">
+              <Clock className="h-3.5 w-3.5" />
+              {p.status}
+            </span>
+          )}
+          {p.links.map((l) => (
+            <a
+              key={l.url}
+              href={l.url}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 rounded-full border border-brand-accent/40 bg-brand-accent/10 px-3 py-1 text-xs font-semibold text-brand-accent transition-colors hover:bg-brand-accent hover:text-brand-bg"
+            >
+              {l.label}
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </a>
+          ))}
+        </div>
+      )}
+
       {projectAnimation(p.name)}
 
       <p className="text-sm leading-relaxed text-brand-muted">{p.description}</p>
 
-      <div className="flex flex-wrap gap-2">
+      <div className="mt-auto flex flex-wrap gap-2 pt-2">
         {p.stack.map((t) => (
           <span key={t} className="rounded border border-brand-border bg-brand-bg-soft px-2.5 py-1 text-[11px] text-brand-muted">
             {t}
           </span>
-        ))}
-      </div>
-
-      <div className="mt-auto flex flex-wrap items-center gap-4 pt-2">
-        {p.status && (
-          <span className="inline-flex items-center gap-1.5 text-xs font-medium text-brand-accent">
-            <Clock className="h-3.5 w-3.5" />
-            {p.status}
-          </span>
-        )}
-        {p.links.map((l) => (
-          <a
-            key={l.url}
-            href={l.url}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-1 text-xs font-semibold text-brand-text hover:text-brand-accent"
-          >
-            {l.label}
-            <ArrowUpRight className="h-3.5 w-3.5" />
-          </a>
         ))}
       </div>
     </>
