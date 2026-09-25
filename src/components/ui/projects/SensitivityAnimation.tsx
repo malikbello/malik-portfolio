@@ -15,9 +15,12 @@ export function SensitivityAnimation() {
   const [bars, setBars] = useState(() => Array.from({ length: FEATURES }, () => ({ left: 30, right: 30 })));
 
   useEffect(() => {
-    setBars(randomSpread());
+    const raf = requestAnimationFrame(() => setBars(randomSpread()));
     const id = setInterval(() => setBars(randomSpread()), 2200);
-    return () => clearInterval(id);
+    return () => {
+      cancelAnimationFrame(raf);
+      clearInterval(id);
+    };
   }, []);
 
   return (

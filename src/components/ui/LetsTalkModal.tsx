@@ -70,7 +70,7 @@ export function LetsTalkModal({ open, onClose }: { open: boolean; onClose: () =>
                 <span>
                   <span className="block text-sm font-semibold text-brand-text">Talk to {siteConfig.aiName} first</span>
                   <span className="block text-xs text-brand-muted">
-                    Work out what you need, then reach out once it's clear.
+                    Work out what you need, then reach out once it&apos;s clear.
                   </span>
                 </span>
               </button>

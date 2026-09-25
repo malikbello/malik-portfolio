@@ -16,12 +16,15 @@ export function DemandBarsAnimation() {
 
   useEffect(() => {
     let seed = 0;
-    setHeights(wavePattern(seed));
+    const raf = requestAnimationFrame(() => setHeights(wavePattern(seed)));
     const id = setInterval(() => {
       seed += 0.7;
       setHeights(wavePattern(seed));
     }, 900);
-    return () => clearInterval(id);
+    return () => {
+      cancelAnimationFrame(raf);
+      clearInterval(id);
+    };
   }, []);
 
   return (

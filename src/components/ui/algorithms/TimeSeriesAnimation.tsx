@@ -33,7 +33,8 @@ export function TimeSeriesAnimation() {
   const [cycle, setCycle] = useState(0);
 
   useEffect(() => {
-    setSeries(genSeries());
+    const raf = requestAnimationFrame(() => setSeries(genSeries()));
+    return () => cancelAnimationFrame(raf);
   }, [cycle]);
 
   useEffect(() => {

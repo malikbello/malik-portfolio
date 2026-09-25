@@ -46,8 +46,11 @@ export function RouteAnimation() {
 
   useEffect(() => {
     const pts = randomPoints(9);
-    setPoints(pts);
-    setTour(nearestNeighbourTour(pts));
+    const raf = requestAnimationFrame(() => {
+      setPoints(pts);
+      setTour(nearestNeighbourTour(pts));
+    });
+    return () => cancelAnimationFrame(raf);
   }, [cycle]);
 
   useEffect(() => {

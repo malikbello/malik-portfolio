@@ -27,7 +27,8 @@ export function RLAnimation() {
   const [step, setStep] = useState(0);
 
   useEffect(() => {
-    setPath(randomWalkToGoal());
+    const raf = requestAnimationFrame(() => setPath(randomWalkToGoal()));
+    return () => cancelAnimationFrame(raf);
   }, []);
 
   useEffect(() => {

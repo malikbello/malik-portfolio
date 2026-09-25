@@ -48,8 +48,11 @@ export function TSPAnimation() {
 
   useEffect(() => {
     const pts = randomPoints();
-    setPoints(pts);
-    setTour(nearestNeighbourTour(pts));
+    const raf = requestAnimationFrame(() => {
+      setPoints(pts);
+      setTour(nearestNeighbourTour(pts));
+    });
+    return () => cancelAnimationFrame(raf);
   }, [cycle]);
 
   useEffect(() => {

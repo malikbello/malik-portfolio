@@ -16,7 +16,8 @@ export function AIDERAnimation() {
   const [pins, setPins] = useState<Pin[]>([]);
 
   useEffect(() => {
-    setPins(randomPins());
+    const raf = requestAnimationFrame(() => setPins(randomPins()));
+    return () => cancelAnimationFrame(raf);
   }, []);
 
   return (

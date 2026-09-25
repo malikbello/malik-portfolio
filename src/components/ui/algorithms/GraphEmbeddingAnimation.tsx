@@ -36,9 +36,12 @@ export function GraphEmbeddingAnimation() {
   const [embedded, setEmbedded] = useState(false);
 
   useEffect(() => {
-    setNodes(genNodes());
+    const raf = requestAnimationFrame(() => setNodes(genNodes()));
     const id = setInterval(() => setEmbedded((e) => !e), 3200);
-    return () => clearInterval(id);
+    return () => {
+      cancelAnimationFrame(raf);
+      clearInterval(id);
+    };
   }, []);
 
   const colors = ["var(--color-brand-accent)", "#7fb99a", "#e7d38b"];

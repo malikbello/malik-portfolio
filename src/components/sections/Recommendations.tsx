@@ -49,7 +49,7 @@ export function Recommendations() {
             className="flex w-[300px] shrink-0 snap-start flex-col items-start justify-center gap-3 rounded-2xl border border-dashed border-brand-accent/50 bg-brand-accent/[0.06] p-6"
           >
             <Sparkles className="h-5 w-5 text-brand-accent" />
-            <p className="text-sm font-semibold text-brand-text">Worked with me? I'd love your endorsement.</p>
+            <p className="text-sm font-semibold text-brand-text">Worked with me? I&apos;d love your endorsement.</p>
             <p className="text-xs leading-relaxed text-brand-muted">
               {recommendations.length === 0
                 ? "Be the first — recommendations will appear here as they come in."
