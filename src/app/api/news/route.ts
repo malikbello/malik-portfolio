@@ -15,11 +15,12 @@ const FEEDS: { url: string; source: string }[] = [
 function decodeEntities(str: string) {
   return str
     .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1")
-    .replace(/&amp;/g, "&")
     .replace(/&lt;/g, "<")
     .replace(/&gt;/g, ">")
     .replace(/&#39;/g, "'")
     .replace(/&quot;/g, '"')
+    // &amp; last: decoding it first would turn "&amp;lt;" into "<" (CodeQL js/double-escaping)
+    .replace(/&amp;/g, "&")
     .trim();
 }
 

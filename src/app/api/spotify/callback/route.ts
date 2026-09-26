@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
   const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
 
   if (error) {
-    return html(`<p>Spotify authorization was denied: ${error}</p>`);
+    return html(`<p>Spotify authorization was denied: ${escapeHtml(error)}</p>`);
   }
   if (!code) {
     return html(`<p>No authorization code received.</p>`);
@@ -40,19 +40,26 @@ export async function GET(req: NextRequest) {
 
   const data = await res.json();
   if (!res.ok) {
-    return html(`<p>Token exchange failed: ${JSON.stringify(data)}</p>`);
+    return html(`<p>Token exchange failed: ${escapeHtml(JSON.stringify(data))}</p>`);
   }
 
   return html(`
     <p>Success! Copy this refresh token and set it as <code>SPOTIFY_REFRESH_TOKEN</code> in Vercel:</p>
-    <textarea readonly style="width:100%;height:100px;font-family:monospace;padding:8px;">${data.refresh_token}</textarea>
+    <textarea readonly style="width:100%;height:100px;font-family:monospace;padding:8px;">${escapeHtml(String(data.refresh_token ?? ""))}</textarea>
     <p style="color:#888">You can close this tab once it's saved. This code exchange only works once per authorization.</p>
   `);
+}
+
+// Every value interpolated into the page comes from outside (the query
+// string or Spotify's response), so it's escaped: an ?error= value would
+// otherwise be reflected into HTML on this domain (CodeQL js/reflected-xss).
+function escapeHtml(s: string) {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 }
 
 function html(body: string) {
   return new NextResponse(
     `<html><body style="font-family:sans-serif;max-width:600px;margin:60px auto;padding:0 20px;">${body}</body></html>`,
-    { headers: { "Content-Type": "text/html" } }
+    { headers: { "Content-Type": "text/html; charset=utf-8", "Content-Security-Policy": "default-src 'none'; style-src 'unsafe-inline'" } }
   );
 }
