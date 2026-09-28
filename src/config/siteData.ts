@@ -291,10 +291,14 @@ export const projects: Project[] = [
     category: "AI Engineering",
     year: "2026",
     description:
-      "A voice-first personal AI assistant running on a single real-time speech pipeline. Maya holds natural conversation while calling out to a live toolbelt — weather, alarms and reminders, health tracking (sleep, water, mood, medication), Spotify playback, Telegram messaging, and an emergency SOS routine with repeating alerts and motion detection.",
-    stack: ["Deepgram Voice Agent (STT+TTS)", "GPT-4o-mini", "OpenCV", "Telegram Bot API", "Spotify OAuth"],
-    links: [],
-    status: "Coming soon — in final packaging for public release",
+      "A voice-first AI health companion on a single real-time speech pipeline. Maya holds natural conversation while calling out to a live toolbelt: weather forecasts for trip planning, reminders, health tracking (sleep, water, mood, medication), Spotify playback, messages to a doctor on Telegram, and an emergency SOS with repeating alerts. The public web demo runs in a hardened, metered mode with personal integrations off, and recovers from dropped speech connections mid-conversation.",
+    stack: ["Deepgram Voice Agent (STT+TTS)", "GPT-4o-mini", "FastAPI", "Docker", "Render", "Telegram Bot API", "Spotify OAuth"],
+    links: [
+      { label: "Live Demo", url: "https://maya-ai-companion-wjgw.onrender.com" },
+      { label: "GitHub", url: "https://github.com/malikbello/maya-ai-companion" },
+      { label: "Watch the Film", url: "https://github.com/malikbello/maya-ai-companion/releases/tag/v1.0.0" },
+    ],
+    featured: true,
   },
   {
     name: "ESAAM — Exploratory & Sensitivity Analysis App",
