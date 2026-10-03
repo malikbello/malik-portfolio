@@ -167,7 +167,7 @@ export const experience: ExperienceItem[] = [
     points: [],
   },
   {
-    period: "May 2024 — Jan 2025",
+    period: "May 2024 — Feb 2025",
     role: "Data Analyst",
     org: "Directorate of ICT, Olabisi Onabanjo University",
     location: "Ago Iwoye, Ogun, Nigeria",
@@ -212,7 +212,7 @@ export const experience: ExperienceItem[] = [
 
 export const teaching = {
   role: "Data Analytics & Business Intelligence Tutor",
-  org: "Baskenky",
+  org: "Babskenky",
   url: "https://www.babskenky.com/",
   desc: "Teaching analytics engineering, dbt, SQL, Python, Power BI, and Git/GitHub workflows to aspiring data professionals — translating production data practice into a structured, mentor-led curriculum.",
   topics: ["Analytics Engineering", "dbt", "SQL", "Git & GitHub", "Power BI", "Python for Analysts"],
