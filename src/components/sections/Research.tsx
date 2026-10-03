@@ -103,7 +103,7 @@ export function Research() {
             rel="noreferrer"
             className="mt-5 inline-flex items-center gap-1.5 text-xs font-semibold text-brand-accent hover:underline"
           >
-            Visit Baskenky <ArrowUpRight className="h-3.5 w-3.5" />
+            Visit Babskenky <ArrowUpRight className="h-3.5 w-3.5" />
           </a>
         </div>
       </div>
