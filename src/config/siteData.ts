@@ -103,17 +103,17 @@ export const capabilities = [
   {
     title: "Machine Learning Systems",
     desc: "Predictive modelling, classification, forecasting and decision-support engines trained on messy, real-world data.",
-    tech: ["Python", "Scikit-learn", "XGBoost", "LightGBM", "Pandas", "Graph Embeddings", "Time Series"],
+    tech: ["Python", "Scikit-learn", "XGBoost", "LightGBM", "Pandas", "Graph Neural Networks", "Graph Embeddings", "Time Series", "Fraud & Risk Modelling"],
   },
   {
     title: "Agentic & GenAI Engineering",
     desc: "Retrieval-augmented generation, tool-using agents and multimodal reasoning — including the harness and loop design that makes agents reliable, not just clever.",
-    tech: ["Anthropic Claude", "Gemini", "AWS Bedrock", "LangChain", "RAG", "MCP", "Agent Harness Engineering", "Loop Engineering"],
+    tech: ["Anthropic Claude", "Gemini", "AWS Bedrock", "LangChain", "RAG", "MCP", "Agent Harness Engineering", "Loop Engineering", "LLM Fine-tuning (QLoRA)"],
   },
   {
     title: "Cloud & MLOps",
     desc: "Infrastructure-as-code, containerised services and monitored pipelines that take a notebook from idea to production.",
-    tech: ["AWS", "Azure", "Terraform", "Docker", "FastAPI / Flask"],
+    tech: ["AWS", "Azure", "Microsoft Fabric", "MLflow", "Terraform", "Docker", "FastAPI / Flask"],
   },
   {
     title: "Data Engineering & Analytics",
@@ -160,7 +160,7 @@ export const experience: ExperienceItem[] = [
     points: [],
   },
   {
-    period: "Jan 2020 — Aug 2025",
+    period: "Jan 2020 — Dec 2024",
     role: "Data & Research Analyst, Digital Marketer, and Writer",
     org: "Upwork (Freelance)",
     location: "Remote, Nigeria",
@@ -195,7 +195,7 @@ export const experience: ExperienceItem[] = [
     points: [],
   },
   {
-    period: "Jul 2023 — Feb 2024",
+    period: "Jul 2023 — Jan 2024",
     role: "Graduate Research Assistant",
     org: "Science & Technology Education Dept., Obafemi Awolowo University",
     location: "Ife, Osun, Nigeria",
@@ -233,6 +233,21 @@ export const projectsNote =
   "Every project below is personal work, built and published in my own time. Source code for professional work — including everything built for Wema Bank Plc — is covered by NDA and isn't shown here, though I'm glad to speak to the impact and approach in conversation.";
 
 export const projects: Project[] = [
+  {
+    name: "PHC Scribe & Tákàdá — AI for Primary Health Care",
+    category: "AI Engineering",
+    year: "2026",
+    description:
+      "A documentation aid for primary health care in Nigeria. A nurse talks with a mother in English, Pidgin or Yorùbá, and the system drafts a structured antenatal record with WHO-based danger-sign flags. N-ATLaS 8B, fine-tuned with QLoRA, and N-ATLaS speech models draft the record; every finding must quote the words it came from, and polarity and support checks flag negated or unsupported findings for the nurse, who has the final word. Benchmarked on frozen test sets never used to choose settings, with every reported number published as JSON. Ships as a rate-limited FastAPI service on a GPU, an offline clinic hub that runs on an ordinary laptop with no graphics card, and a React phone app. Led with a team of nurses and a pharmacist and submitted to the National AI Innovation Challenge 2026 (NCAIR/NITDA).",
+    stack: ["N-ATLaS 8B", "QLoRA", "llama.cpp (GGUF)", "FastAPI", "Modal GPU", "Docker", "React"],
+    links: [
+      { label: "Live Demo", url: "https://takada-app.vercel.app" },
+      { label: "GitHub (model, benchmark, API)", url: "https://github.com/malikbello/phc-scribe" },
+      { label: "GitHub (phone app, clinic hub)", url: "https://github.com/malikbello/takada-app" },
+      { label: "Model on Hugging Face", url: "https://huggingface.co/malikbello/N-ATLaS-Health-ANC-Scribe-GGUF-Powered-by-Awarri" },
+    ],
+    featured: true,
+  },
   {
     name: "AIDER — AI-Driven Emergency Response",
     category: "AI Engineering",
