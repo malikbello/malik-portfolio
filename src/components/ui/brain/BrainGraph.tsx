@@ -34,7 +34,7 @@ export function BrainGraph() {
 
   return (
     <div className="grid gap-4 lg:grid-cols-[1fr_260px]">
-      <div ref={containerRef} className="bg-abstract-mesh h-[520px] overflow-hidden rounded-2xl border border-brand-border">
+      <div ref={containerRef} className="bg-cascade-stage h-[520px] overflow-hidden rounded-2xl border border-brand-border">
         <ForceGraph2D
           ref={fgRef}
           graphData={data as never}

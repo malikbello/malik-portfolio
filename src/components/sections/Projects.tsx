@@ -243,7 +243,7 @@ function ProjectCascade({ filtered }: { filtered: Project[] }) {
 
   return (
     <div ref={containerRef} style={{ height: `${Math.max(1, total) * 92}vh` }} className="relative">
-      <div className="bg-abstract-mesh sticky top-20 h-[min(78vh,700px)] overflow-hidden rounded-3xl border border-brand-border">
+      <div className="bg-cascade-stage sticky top-20 h-[min(78vh,700px)] overflow-hidden rounded-3xl border border-brand-border">
         <div className="grid h-full items-center gap-6 px-6 md:grid-cols-[1fr_120px] md:px-10">
           <div style={{ perspective: 1500, perspectiveOrigin: "50% 40%" }} className="relative h-full">
             {filtered.map((p, idx) => (

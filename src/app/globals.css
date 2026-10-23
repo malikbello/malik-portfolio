@@ -12,6 +12,21 @@
   --color-brand-muted: #a3c1ad;
 }
 
+/* Light theme: same dark-forest-green-and-gold identity, inverted — cream
+   backgrounds, deep-green text, a slightly deepened gold for AA contrast on
+   white. Toggled via ThemeToggle, which sets data-theme on <html>. */
+:root[data-theme="light"] {
+  --color-brand-bg: #f7faf5;
+  --color-brand-bg-soft: #eef5ee;
+  --color-brand-surface: #ffffff;
+  --color-brand-border: #d7e4d9;
+  --color-brand-accent: #92660a;
+  --color-brand-accent-soft: #f2dfa0;
+  --color-brand-accent-hover: #6e4d08;
+  --color-brand-text: #0a1f14;
+  --color-brand-muted: #4a5d52;
+}
+
 @theme inline {
   --color-brand-bg: var(--color-brand-bg);
   --color-brand-bg-soft: var(--color-brand-bg-soft);
@@ -53,19 +68,6 @@ body {
   background-image:
     linear-gradient(to right, var(--color-brand-border) 1px, transparent 1px),
     linear-gradient(to bottom, var(--color-brand-border) 1px, transparent 1px);
-}
-
-/* Subtle abstract backdrop for data-heavy sections (project cascade, brain graph):
-   two soft gold glow blooms plus a fine dot grid, low-opacity enough to stay
-   out of the way of whatever renders on top of it. */
-.bg-abstract-mesh {
-  background-color: var(--color-brand-bg-soft);
-  background-image:
-    radial-gradient(circle at 18% 22%, color-mix(in srgb, var(--color-brand-accent) 12%, transparent), transparent 45%),
-    radial-gradient(circle at 84% 78%, color-mix(in srgb, var(--color-brand-accent) 7%, transparent), transparent 50%),
-    radial-gradient(circle, var(--color-brand-border) 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 24px 24px;
-  background-position: 0 0, 0 0, 0 0;
 }
 
 .text-balance {
@@ -159,4 +161,36 @@ body {
 
 .leaflet-container {
   background: #04160e !important;
+}
+
+/* The project cascade stage and the brain graph canvas are deliberately always
+   dark, like launchfar's own card deck — a fixed "theater" backdrop for
+   contrast, independent of the page's light/dark theme. Same look as
+   .bg-abstract-mesh, but with fixed colors instead of theme tokens.
+   Also re-pins every brand token to its dark value within this element, so
+   any child using text-brand-text/bg-brand-bg-soft/etc. stays legible here
+   even while the rest of the page is in light mode — otherwise light-theme
+   text colors render dark-on-dark against these forced-dark cards. */
+.bg-cascade-stage {
+  --color-brand-bg: #04160e;
+  --color-brand-bg-soft: #062617;
+  --color-brand-surface: #0a3320;
+  --color-brand-border: #114a2c;
+  --color-brand-accent: #f1c40f;
+  --color-brand-accent-soft: #f7dc6f;
+  --color-brand-accent-hover: #d4ac0d;
+  --color-brand-text: #f7faf8;
+  --color-brand-muted: #a3c1ad;
+  /* Setting color (not just the custom property) makes it actually inherit
+     down to text that has no explicit text-brand-* class of its own, like
+     the card titles — a custom property redefinition alone doesn't flow
+     through inheritance the way a resolved `color` value does. */
+  color: var(--color-brand-text);
+  background-color: #062617;
+  background-image:
+    radial-gradient(circle at 18% 22%, color-mix(in srgb, #f1c40f 12%, transparent), transparent 45%),
+    radial-gradient(circle at 84% 78%, color-mix(in srgb, #f1c40f 7%, transparent), transparent 50%),
+    radial-gradient(circle, #114a2c 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 24px 24px;
+  background-position: 0 0, 0 0, 0 0;
 }
