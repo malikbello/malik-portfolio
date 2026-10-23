@@ -1,33 +1,31 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
 
 export function ThemeToggle({ className }: { className?: string }) {
-  const [theme, setTheme] = useState<"dark" | "light">("dark");
-
-  useEffect(() => {
-    if (localStorage.getItem("theme") === "light") setTheme("light");
-  }, []);
-
   function toggle() {
-    const next = theme === "light" ? "dark" : "light";
-    setTheme(next);
-    localStorage.setItem("theme", next);
-    if (next === "light") {
-      document.documentElement.setAttribute("data-theme", "light");
-    } else {
+    const isLight = document.documentElement.getAttribute("data-theme") === "light";
+    if (isLight) {
       document.documentElement.removeAttribute("data-theme");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.setAttribute("data-theme", "light");
+      localStorage.setItem("theme", "light");
     }
   }
 
   return (
     <button
       onClick={toggle}
-      aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
+      aria-label="Toggle light or dark theme"
       className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-brand-border text-brand-muted transition-colors hover:border-brand-accent hover:text-brand-accent ${className ?? ""}`}
     >
-      {theme === "light" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+      {/* Which icon shows is driven by the data-theme attribute via CSS, not
+          React state — avoids a setState-in-effect render cascade and any
+          SSR/client hydration mismatch, since both icons render identically
+          on the server either way. */}
+      <Sun className="h-4 w-4 [html[data-theme=light]_&]:hidden" />
+      <Moon className="hidden h-4 w-4 [html[data-theme=light]_&]:block" />
     </button>
   );
 }
