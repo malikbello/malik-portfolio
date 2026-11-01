@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { siteConfig } from "@/config/siteData";
 import { LetsTalkModal } from "@/components/ui/LetsTalkModal";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 const links = [
   { href: "#capabilities", label: "Capabilities" },
@@ -52,20 +53,26 @@ export function Navbar() {
           ))}
         </div>
 
-        <button
-          onClick={() => setTalkOpen(true)}
-          className="hidden rounded-full border border-brand-accent px-4 py-2 text-xs font-bold text-brand-accent transition-all hover:bg-brand-accent hover:text-brand-bg md:inline-block"
-        >
-          Let&apos;s Talk
-        </button>
+        <div className="hidden items-center gap-3 md:flex">
+          <ThemeToggle />
+          <button
+            onClick={() => setTalkOpen(true)}
+            className="rounded-full border border-brand-accent px-4 py-2 text-xs font-bold text-brand-accent transition-all hover:bg-brand-accent hover:text-brand-bg"
+          >
+            Let&apos;s Talk
+          </button>
+        </div>
 
-        <button
-          className="text-brand-text md:hidden"
-          onClick={() => setOpen((v) => !v)}
-          aria-label="Toggle menu"
-        >
-          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
+        <div className="flex items-center gap-2 md:hidden">
+          <ThemeToggle />
+          <button
+            className="text-brand-text"
+            onClick={() => setOpen((v) => !v)}
+            aria-label="Toggle menu"
+          >
+            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
       </div>
 
       {open && (
