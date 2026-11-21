@@ -406,11 +406,18 @@ export type Publication = {
   title: string;
   venue: string;
   year: string;
-  type: "Journal Article" | "Conference Presentation";
+  type: "Journal Article" | "Conference Presentation" | "Preprint";
   url?: string;
 };
 
 export const publications: Publication[] = [
+  {
+    title: "Third-party script defences of Nigerian financial institutions after the Optimizely compromise: a passive measurement of 63 bank, fintech and insurer homepages",
+    venue: "Preprint, Zenodo. Sector-level measurement of Content Security Policy; 3 of 63 homepages would have contained the attack",
+    year: "2026",
+    type: "Preprint",
+    url: "https://doi.org/10.5281/zenodo.24416601",
+  },
   {
     title: "Interactivity as a Retention Factor for Learning Biology with the Protégé Effect",
     venue: "Journal of Teaching and Learning, 19(1), 107–130",

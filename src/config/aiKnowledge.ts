@@ -33,7 +33,7 @@ export function buildKnowledgeBase(): string {
     .join("\n");
 
   const pubText = publications
-    .map((p) => `- ${p.title} — ${p.venue} (${p.year}, ${p.type})`)
+    .map((p) => `- ${p.title} — ${p.venue} (${p.year}, ${p.type})${p.url ? ` [link](${p.url})` : ""}`)
     .join("\n");
 
   const capText = capabilities.map((c) => `- ${c.title}: ${c.desc} Tools: ${c.tech.join(", ")}.`).join("\n");
