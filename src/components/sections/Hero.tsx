@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Mail, Terminal } from "lucide-react";
+import { ArrowUpRight, Mail, Terminal, Trophy } from "lucide-react";
 import { siteConfig } from "@/config/siteData";
 import { NowPlaying } from "@/components/ui/NowPlaying";
 import { NewsFeed } from "@/components/ui/NewsFeed";
@@ -32,6 +32,24 @@ export function Hero() {
           <span className="text-brand-border">•</span>
           <span className="text-brand-text">{siteConfig.company}</span>
         </motion.div>
+
+        <motion.a
+          initial="hidden"
+          animate="show"
+          custom={0.5}
+          variants={fadeUp}
+          href={siteConfig.highlight.url}
+          target="_blank"
+          rel="noreferrer"
+          className="group flex w-fit items-start gap-2.5 rounded-xl border border-brand-accent/50 bg-brand-accent/10 px-4 py-2.5 text-sm transition-colors hover:bg-brand-accent/20"
+        >
+          <Trophy className="mt-0.5 h-4 w-4 shrink-0 text-brand-accent" />
+          <span>
+            <span className="font-bold text-brand-accent">{siteConfig.highlight.label}</span>
+            <span className="block text-xs text-brand-muted">{siteConfig.highlight.detail}</span>
+          </span>
+          <ArrowUpRight className="mt-0.5 h-4 w-4 shrink-0 text-brand-accent transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+        </motion.a>
 
         <motion.h1
           initial="hidden"
