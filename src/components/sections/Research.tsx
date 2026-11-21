@@ -11,7 +11,7 @@ export function Research() {
       <SectionHeading
         eyebrow="Research & Scholarship"
         title="Published work, and the discipline behind the models."
-        description="Peer-reviewed research and conference work in learning science and social research — the same rigor applied to every model shipped."
+        description="Peer-reviewed research, conference work and preprints in learning science, social research and web security, with the same rigor applied to every model shipped."
       />
 
       <div className="flex flex-wrap gap-2">
@@ -46,6 +46,16 @@ export function Research() {
                 </p>
                 <h3 className="mt-1 text-sm font-semibold leading-snug text-brand-text">{p.title}</h3>
                 <p className="mt-1 text-xs text-brand-muted">{p.venue}</p>
+                {p.url && (
+                  <a
+                    href={p.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-brand-accent hover:underline"
+                  >
+                    {p.type === "Preprint" ? "Read the preprint" : "Read the paper"} <ArrowUpRight className="h-3 w-3" />
+                  </a>
+                )}
               </div>
             </motion.div>
           ))}
