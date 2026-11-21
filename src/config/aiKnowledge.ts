@@ -28,7 +28,7 @@ export function buildKnowledgeBase(): string {
       (p) =>
         `- ${p.name} [${p.category}, ${p.year}] — ${p.description} Stack: ${p.stack.join(", ")}.${
           p.status ? ` Status: ${p.status}.` : ""
-        }${p.links.length ? ` Links: ${p.links.map((l) => `[${l.label}](${l.url})`).join(", ")}.` : ""}`
+        }${p.award ? ` Award: ${p.award.label} ([announcement](${p.award.url})).` : ""}${p.links.length ? ` Links: ${p.links.map((l) => `[${l.label}](${l.url})`).join(", ")}.` : ""}`
     )
     .join("\n");
 

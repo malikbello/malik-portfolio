@@ -17,6 +17,11 @@ export const siteConfig = {
     { text: "Advantage is", highlight: "Rare." },
     { text: "I Build", highlight: "the Difference." },
   ],
+  highlight: {
+    label: "Winner, Best Use of Microsoft Foundry",
+    detail: "Microsoft × Premier League Inside the Game Hackathon 2026",
+    url: "https://techcommunity.microsoft.com/blog/azure-events/announcing-the-inside-the-game-developer-hackathon-winners/4574639",
+  },
   socials: {
     linkedin: "https://www.linkedin.com/in/malik-bello-data-scientist/",
     github: "https://github.com/malikbello",
@@ -227,12 +232,30 @@ export type Project = {
   links: { label: string; url: string }[];
   featured?: boolean;
   status?: string;
+  award?: { label: string; url: string };
 };
 
 export const projectsNote =
   "Every project below is personal work, built and published in my own time. Source code for professional work — including everything built for Wema Bank Plc — is covered by NDA and isn't shown here, though I'm glad to speak to the impact and approach in conversation.";
 
 export const projects: Project[] = [
+  {
+    name: "Matchcut: Every Fan's Cut of the Game",
+    category: "AI Engineering",
+    year: "2026",
+    description:
+      "Won Best Use of Microsoft Foundry at the Microsoft × Premier League Inside the Game Developer Hackathon, out of 804 projects from 2,031 developers. Matchcut turns live match events into verified, explainable insight on a 3D broadcast show, then gives every fan their own voiced, captioned highlights film in seven languages, with an audio-described version for blind and partially sighted fans. Foundry agents write each line, a deterministic Verifier checks every number before it airs, and a Recap Factory on Azure Container Apps Jobs made 42 films in about three minutes.",
+    stack: ["Microsoft Foundry", "Microsoft Agent Framework", "MCP", "Azure Container Apps", "Azure AI Speech", "Three.js"],
+    links: [
+      { label: "Watch the Demo", url: "https://youtu.be/7ei7k6i2XI0" },
+      { label: "GitHub", url: "https://github.com/malikbello/matchcut" },
+    ],
+    award: {
+      label: "Winner · Best Use of Microsoft Foundry",
+      url: "https://techcommunity.microsoft.com/blog/azure-events/announcing-the-inside-the-game-developer-hackathon-winners/4574639",
+    },
+    featured: true,
+  },
   {
     name: "PHC Scribe & Tákàdá — AI for Primary Health Care",
     category: "AI Engineering",
@@ -551,6 +574,7 @@ export const kaggleBadges = [
 ];
 
 export const awards = [
+  "2026 Winner, Best Use of Microsoft Foundry, Inside the Game Developer Hackathon (Microsoft × Premier League), for Matchcut: out of 804 projects from 2,031 developers, announced at Microsoft Ignite 2026",
   "2024 OAU Star Award of Excellence — exceptional academic performance",
   "2024 Best Debater, MTG NYSC Rivers State Inter-Platoon Debate Competition",
   "2023 Best Graduating Student (Summa Cum Laude), Faculty of Education, Obafemi Awolowo University",

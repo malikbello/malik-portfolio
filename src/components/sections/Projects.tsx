@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useScroll, useTransform, useMotionValueEvent, type MotionValue } from "framer-motion";
-import { ArrowUpRight, Clock } from "lucide-react";
+import { ArrowUpRight, Clock, Trophy } from "lucide-react";
 import { projects, projectsNote, type Project } from "@/config/siteData";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { cn } from "@/lib/utils";
@@ -16,10 +16,12 @@ import { FloodRiskAnimation } from "@/components/ui/projects/FloodRiskAnimation"
 import { ScrapePipelineAnimation } from "@/components/ui/projects/ScrapePipelineAnimation";
 import { SkylineGrowthAnimation } from "@/components/ui/projects/SkylineGrowthAnimation";
 import { GovernanceAnimation } from "@/components/ui/projects/GovernanceAnimation";
+import { MatchcutAnimation } from "@/components/ui/projects/MatchcutAnimation";
 
 // Each project gets its own small, running visualisation — same idea as the
 // Algorithms section, but illustrating what that specific project does.
 function projectAnimation(name: string) {
+  if (name.includes("Matchcut")) return <MatchcutAnimation />;
   if (name.includes("AIDER")) return <AIDERAnimation />;
   if (name.includes("Bedrock RAG")) return <RAGFlowAnimation />;
   if (name.includes("Maya")) return <VoiceWaveAnimation />;
@@ -31,6 +33,20 @@ function projectAnimation(name: string) {
   if (name.includes("Skyline")) return <SkylineGrowthAnimation />;
   if (name.includes("Governed Research Agent")) return <GovernanceAnimation />;
   return null;
+}
+
+function AwardBadge({ award }: { award: NonNullable<Project["award"]> }) {
+  return (
+    <a
+      href={award.url}
+      target="_blank"
+      rel="noreferrer"
+      className="inline-flex w-fit items-center gap-1.5 rounded-full bg-brand-accent px-3 py-1 text-xs font-bold text-brand-bg transition-colors hover:bg-brand-accent-hover"
+    >
+      <Trophy className="h-3.5 w-3.5" />
+      {award.label}
+    </a>
+  );
 }
 
 const categories: Array<Project["category"] | "All"> = [
@@ -123,6 +139,8 @@ function CascadeCard({
         <h3 className="mt-1 font-heading text-lg font-bold leading-snug">{project.name}</h3>
       </div>
 
+      {project.award && <AwardBadge award={project.award} />}
+
       {/* Links moved up here, right under the title -- previously pushed to the
           very bottom of the card (mt-auto), which put them furthest from where
           attention actually lands while scrolling through the cascade. */}
@@ -173,6 +191,8 @@ function ProjectDetail({ p }: { p: Project }) {
         </span>
         <h3 className="mt-1 font-heading text-lg font-bold leading-snug">{p.name}</h3>
       </div>
+
+      {p.award && <AwardBadge award={p.award} />}
 
       {(p.links.length > 0 || p.status) && (
         <div className="flex flex-wrap items-center gap-4">
